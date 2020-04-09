@@ -1,7 +1,7 @@
 if (typeof Buffer == "undefined") Buffer = require("buffer/").Buffer;
 if (typeof XMLHttpRequest == "undefined") XMLHttpRequest = require('xhr2');
 const BN = require("bignumber.js");
-const 
+
 //CLI below
 defaultProvider = "https://rpc.betanet.tzlibre.io/",
 counters = {},
