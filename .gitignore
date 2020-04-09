@@ -5,6 +5,5 @@ index.html
 test.html
 .idea
 package-lock.json
-dist
 yarn.lock
 .DS_Store

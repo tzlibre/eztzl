@@ -1,4 +1,3 @@
-const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -6,12 +5,12 @@ module.exports = {
   mode: "production",
   output: {
     filename: "./eztzl.min.js",
+    library: ["eztzl"]
   },
   node: {
     fs: "empty",
   },
   plugins: [
-    new CompressionPlugin(),
     new CleanWebpackPlugin(),
   ],
   module: {

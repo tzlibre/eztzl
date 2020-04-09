@@ -1423,18 +1423,18 @@ utility.mlraw2json = utility.ml2mic;
 utility.mintotz = utility.totez;
 utility.tztomin = utility.mutez;
 
-module.exports = {
+const eztzl = {
   defaultProvider,
-  eztzl: {
-    library: library,
-    prefix: prefix,
-    watermark: watermark,
-    utility: utility,
-    crypto: crypto,
-    node: node,
-    rpc: rpc,
-    contract: contract,
-    trezor: trezor,
-    tezos: tezos
-  },
+  library: library,
+  prefix: prefix,
+  watermark: watermark,
+  utility: utility,
+  crypto: crypto,
+  node: node,
+  rpc: rpc,
+  contract: contract,
+  trezor: trezor,
+  tezos: tezos
 };
+
+module.exports = eztzl;
