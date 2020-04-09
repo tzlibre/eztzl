@@ -1,0 +1,11 @@
+node_modules/
+coverage/
+tests/
+index.html
+test/*
+test.html
+.idea
+package-lock.json
+dist
+yarn.lock
+.DS_Store

@@ -1,0 +1,36 @@
+{
+  "name": "eztzl",
+  "author": "TzLibre",
+  "description": "TzLibre JS library",
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "dependencies": {
+    "bignumber.js": "^9.0.0",
+    "bip39": "^3.0.2",
+    "bs58check": "^2.1.2",
+    "buffer": "^5.5.0",
+    "libsodium-wrappers": "^0.5.4",
+    "pbkdf2": "^3.0.17",
+    "xhr2": "^0.2.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "webpack -p --mode=production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^3.1.0",
+    "jest": "^25.3.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tzlibre/eztzl.git"
+  }
+}
