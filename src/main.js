@@ -237,7 +237,7 @@ utility = {
           val = "";
           continue;
         }
-        ret.push(eztz.utility.ml2tzjson(val));
+        ret.push(eztzl.utility.ml2tzjson(val));
         val = '';
         continue;
       }
@@ -659,7 +659,7 @@ rpc = {
     };
     if (typeof parameter == 'undefined') parameter = false;
     if (parameter){
-      operation.parameters = eztz.utility.sexp2mic(parameter);
+      operation.parameters = eztzl.utility.sexp2mic(parameter);
     }
     return rpc.sendOperation(from, operation, keys, false, revealFee);
   },
@@ -778,7 +778,7 @@ contract = {
   },
   storage: function (contract) {
     return new Promise(function (resolve, reject) {
-      eztz.node.query("/chains/main/blocks/head/context/contracts/" + contract + 
+      eztzl.node.query("/chains/main/blocks/head/context/contracts/" + contract + 
       "/storage").then(function (r) {
         resolve(r);
       }).catch(function (e) {
@@ -787,7 +787,7 @@ contract = {
     });
   },
   load: function (contract) {
-    return eztz.node.query("/chains/main/blocks/head/context/contracts/" + contract);
+    return eztzl.node.query("/chains/main/blocks/head/context/contracts/" + contract);
   },
   watch: function (cc, timeout, cb) {
     let storage = [];
@@ -1264,11 +1264,11 @@ var forgeOpTags = {
 };
 function forgeOp(op){
   var fop;
-  fop = eztz.utility.buf2hex(new Uint8Array([forgeOpTags[op.kind]]));
+  fop = eztzl.utility.buf2hex(new Uint8Array([forgeOpTags[op.kind]]));
   switch (forgeOpTags[op.kind]) {
     case 0: 
     case 1: 
-      fop += eztz.utility.buf2hex(toBytesInt32(op.level));
+      fop += eztzl.utility.buf2hex(toBytesInt32(op.level));
       if (forgeOpTags[op.kind] == 0) break;
       fop += op.nonce;
       if (forgeOpTags[op.kind] == 1) break;
@@ -1278,18 +1278,18 @@ function forgeOp(op){
       if (forgeOpTags[op.kind] == 2) break;
       if (forgeOpTags[op.kind] == 3) break;
     case 4:
-      fop += eztz.utility.buf2hex(eztz.utility.b58cdecode(op.pkh, eztz.prefix.tz1));
+      fop += eztzl.utility.buf2hex(eztzl.utility.b58cdecode(op.pkh, eztzl.prefix.tz1));
       fop += op.secret;
       if (forgeOpTags[op.kind] == 4) break;
     case 5: 
     case 6: 
       fop += forgePublicKeyHash(op.source);
-      fop += eztz.utility.buf2hex(toBytesInt32(op.period));
+      fop += eztzl.utility.buf2hex(toBytesInt32(op.period));
       if (forgeOpTags[op.kind] == 5) {
         throw "Proposal forging is not complete";
         break;
       } else if (forgeOpTags[op.kind] == 6) {
-        fop += eztz.utility.buf2hex(eztz.utility.b58cdecode(op.proposal, eztz.prefix.P));
+        fop += eztzl.utility.buf2hex(eztzl.utility.b58cdecode(op.proposal, eztzl.prefix.P));
         fop += (op.ballot == "yay" ? "00" : (op.ballot == "nay" ? "01" : "02"));
         break;
       }
@@ -1358,7 +1358,7 @@ function forgeAddress(a){
   var fa;
   if (a.substr(0, 1) == "K"){
     fa = "01";
-    fa += eztz.utility.buf2hex(eztz.utility.b58cdecode(a, eztz.prefix.KT));
+    fa += eztzl.utility.buf2hex(eztzl.utility.b58cdecode(a, eztzl.prefix.KT));
     fa += "00";
   } else {
     fa = "00";
@@ -1388,7 +1388,7 @@ function forgePublicKeyHash(pkh){
   var fpkh;
   var t = parseInt(pkh.substr(2, 1));
   fpkh = "0" + (t - 1).toString();
-  fpkh += eztz.utility.buf2hex(eztz.utility.b58cdecode(pkh, eztz.prefix[pkh.substr(0,3)]));
+  fpkh += eztzl.utility.buf2hex(eztzl.utility.b58cdecode(pkh, eztzl.prefix[pkh.substr(0,3)]));
   return fpkh;
 }
 function forgePublicKey(pk){
@@ -1399,7 +1399,7 @@ function forgePublicKey(pk){
     case "sp": fpk = "01"; break;
     case "p2": fpk = "02"; break;
   }
-  fpk += eztz.utility.buf2hex(eztz.utility.b58cdecode(pk, eztz.prefix[pk.substr(0,4)]));
+  fpk += eztzl.utility.buf2hex(eztzl.utility.b58cdecode(pk, eztzl.prefix[pk.substr(0,4)]));
   return fpk;
 }
 function toBytesInt32 (num) {
@@ -1424,7 +1424,7 @@ utility.mintotz = utility.totez;
 utility.tztomin = utility.mutez;
 
 //Expose library
-eztz = {
+eztzl = {
   library: library,
   prefix: prefix,
   watermark: watermark,
@@ -1439,5 +1439,5 @@ eztz = {
 
 module.exports = {
   defaultProvider,
-  eztz: eztz,
+  eztzl: eztzl,
 };

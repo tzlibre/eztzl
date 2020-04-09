@@ -5,7 +5,7 @@ module.exports = {
   entry: "./src/main.js",
   mode: "production",
   output: {
-    filename: "./eztz.min.js",
+    filename: "./eztzl.min.js",
   },
   node: {
     fs: "empty",
