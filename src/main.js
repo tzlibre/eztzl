@@ -3,7 +3,7 @@ if (typeof XMLHttpRequest == "undefined") XMLHttpRequest = require('xhr2');
 const BN = require("bignumber.js");
 
 //CLI below
-defaultProvider = "https://rpc.betanet.tzlibre.io/",
+const defaultProvider = "https://rpc.betanet.tzlibre.io/",
 counters = {},
 library = {
   bs58check: require('bs58check'),
