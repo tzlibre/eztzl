@@ -1,6 +1,6 @@
 describe('main', () => {
   describe('utility', () => {
-    const eztzl = require('../src/main');
+    const eztzl = require('../src/main').eztzl;
     const utility = eztzl.utility;
 
     test('mintotz', () => {
@@ -59,7 +59,7 @@ describe('main', () => {
   });
 
   describe('crypto', () => {
-    const eztzl = require('../src/main');
+    const eztzl = require('../src/main').eztzl;
     const crypto = eztzl.crypto;
 
     test('generateMnemonic', () => {
@@ -90,11 +90,11 @@ describe('main', () => {
   });
 
   describe('node', () => {
-    let main,
+    let eztzl,
       node;
 
     beforeEach(() => {
-      eztzl = require('../src/main');
+      eztzl = require('../src/main').eztzl;
       node = eztzl.node;
     });
 
