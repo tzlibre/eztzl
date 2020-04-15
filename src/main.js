@@ -67,7 +67,7 @@ utility = {
     const n = new Uint8Array(prefix.length + payload.length);
     n.set(prefix);
     n.set(payload, prefix.length);
-    return library.bs58check.encode(Buffer(n, 'hex'));
+    return library.bs58check.encode(Buffer.from(n, 'hex'));
   },
   b58cdecode: function(enc, prefix) { return library.bs58check.decode(enc).slice(prefix.length)},
   buf2hex: function (buffer) {
