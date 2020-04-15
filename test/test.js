@@ -99,17 +99,8 @@ describe('main', () => {
     });
 
     test('init params', () => {
-      expect(node.debugMode).toBe(false);
       expect(node.async).toBe(true);
       expect(node.activeProvider).toBe('https://rpc.betanet.tzlibre.io/');
-    });
-
-    test('setDebugMode', () => {
-      node.setDebugMode(true);
-      expect(node.debugMode).toBe(true);
-
-      node.setDebugMode(false);
-      expect(node.debugMode).toBe(false);
     });
 
     test('setProvider', () => {

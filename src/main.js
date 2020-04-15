@@ -272,7 +272,6 @@ crypto = {
     const esm = esb.slice(8);
     
     return window.crypto.subtle.importKey('raw', new TextEncoder('utf-8').encode(password), {name: 'PBKDF2'}, false, ['deriveBits']).then(function(key){
-        console.log(key);
       return window.crypto.subtle.deriveBits(
         {
           name: 'PBKDF2',
@@ -284,8 +283,6 @@ crypto = {
         256 
       );
     }).then(function(key){
-        console.log(key);
-        console.log(library.sodium.crypto_secretbox_open_easy(esm, new Uint8Array(24), new Uint8Array(key)));
       const kp = library.sodium.crypto_sign_seed_keypair(library.sodium.crypto_secretbox_open_easy(esm, new Uint8Array(24), new Uint8Array(key)));
       return {
         sk: utility.b58cencode(kp.privateKey, prefix.edsk),
@@ -359,12 +356,8 @@ crypto = {
 };
 node = {
   activeProvider: defaultProvider,
-  debugMode: false,
   async: true,
 	isZeronet : false,
-  setDebugMode: function (t) {
-    node.debugMode = t;
-  },
   setProvider: function (u, z) {
 		if (typeof z != 'undefined') node.isZeronet = z;
     node.activeProvider = u;
@@ -386,13 +379,10 @@ node = {
       try {
         const http = new XMLHttpRequest();
         http.open(t, node.activeProvider + e, node.async);
-        if (node.debugMode)
-          console.log("Node call", e, o);
         http.onload = function () {
           if (http.status === 200) {
             if (http.responseText) {
               let r = JSON.parse(http.responseText);
-							if (node.debugMode) console.log("Node response", e, o, r);
               if (typeof r.error !== 'undefined') {
                 reject(r.error);
               } else {
@@ -404,19 +394,13 @@ node = {
             }
           } else {
             if (http.responseText) {
-              if (node.debugMode)
-                console.log(e, o, http.responseText);
               reject(http.responseText);
             } else {  
-              if (node.debugMode)
-                console.log(e, o, http.statusText);
               reject(http.statusText);
             }
           }
         };
         http.onerror = function () {
-          if (node.debugMode)
-            console.log(e, o, http.responseText);
           reject(http.statusText);
         };
         if (t == 'POST'){
@@ -595,7 +579,6 @@ rpc = {
           fullOp.opbytes = signed.sbytes;
           fullOp.opOb.signature = signed.edsig;
         }
-				console.log(fullOp);
 				if (skipPrevalidation) return rpc.silentInject(fullOp.opbytes);
 				else return rpc.inject(fullOp.opOb, fullOp.opbytes);
       }
@@ -1054,7 +1037,7 @@ trezor = {
 					publicKey : utility.mergebuf([0], utility.b58cdecode(op.public_key, prefix.edpk)),
 				};
 			} else {
-				if (['origination', 'transaction', 'delegation'].indexOf(op.kind) < 0) return console.log("err2");
+				if (['origination', 'transaction', 'delegation'].indexOf(op.kind) < 0) return;
 				op2 = {
 					type : op.kind,
 					source : trezor.source(op.source),
@@ -1088,7 +1071,7 @@ trezor = {
 				operations.push(op2);
 			}
 		}
-		if (operations.length > 1) return console.log("Too many operations");
+		if (operations.length > 1) return;
 		var operation = operations[0];
 		var tx = {};
 		return [operation, revealOp];
