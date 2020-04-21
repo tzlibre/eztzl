@@ -544,7 +544,7 @@ rpc = {
         if (['reveal', 'transaction','origination','delegation'].indexOf(ops[i].kind) >= 0) {
           if (typeof ops[i].gas_limit == 'undefined') ops[i].gas_limit = "0";
           if (typeof ops[i].storage_limit == 'undefined') ops[i].storage_limit = "0";
-          ops[i].counter = (counters[from]++).toString();
+          ops[i].counter = ops[i].counter || (counters[from]++).toString();
           
            ops[i].fee = ops[i].fee.toString();
            ops[i].gas_limit = ops[i].gas_limit.toString();
